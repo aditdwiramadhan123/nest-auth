@@ -1,0 +1,32 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main      # Workflow ini akan dijalankan saat ada perubahan di branch 'main'
+  pull_request:
+    branches:
+      - main      # Workflow juga akan dijalankan saat ada pull request ke branch 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # Menjalankan workflow di mesin Ubuntu terbaru
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3    # Mengambil kode terbaru dari repository kamu
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3   # Menyiapkan Node.js di environment
+        with:
+          node-version: '16'          # Menentukan versi Node.js yang digunakan
+
+      - name: Install Dependencies
+        run: npm install      # Menginstall dependensi yang dibutuhkan
+
+      - name: Run Tests
+        run: npm run test     # Menjalankan tes unit atau integration
+
+      - name: Build Project
+        run: npm run build    # Membangun aplikasi NestJS (misalnya untuk deploy)
+
