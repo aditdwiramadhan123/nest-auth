@@ -1,0 +1,23 @@
+# Node.js dependencies
+node_modules/
+
+# Build directories
+dist/
+build/
+
+# Log files
+*.log
+logs/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE and editor configurations
+.vscode/
+.idea/
+
+# Temporary or cache files
+.npm/
+.yarn/
+.cache/
