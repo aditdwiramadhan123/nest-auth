@@ -1,32 +1,38 @@
-name: CI/CD Workflow
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main      # Workflow ini akan dijalankan saat ada perubahan di branch 'main'
+      - main
   pull_request:
     branches:
-      - main      # Workflow juga akan dijalankan saat ada pull request ke branch 'main'
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest   # Menjalankan workflow di mesin Ubuntu terbaru
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3    # Mengambil kode terbaru dari repository kamu
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3   # Menyiapkan Node.js di environment
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Install Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'          # Menentukan versi Node.js yang digunakan
+          node-version: '16'
 
-      - name: Install Dependencies
-        run: npm install      # Menginstall dependensi yang dibutuhkan
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install @prisma/client # Pastikan Prisma client juga terinstal
 
-      - name: Run Tests
-        run: npm run test     # Menjalankan tes unit atau integration
+      # Setup Prisma - Pastikan Prisma di-migrate
+      - name: Run Prisma Migrate
+        run: |
+          npx prisma migrate deploy
+          npx prisma generate # Generate Prisma Client
 
-      - name: Build Project
-        run: npm run build    # Membangun aplikasi NestJS (misalnya untuk deploy)
-
+      # Run tests
+      - name: Run tests
+        run: npm test
