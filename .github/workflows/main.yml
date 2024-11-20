@@ -38,7 +38,7 @@ jobs:
        # Start the application (in the background)
       - name: Start Application
         run: |
-          npm start &
+          npm start & echo $! > server_pid.txt
         # Store the PID of the running process in an environment variable
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }} # Menggunakan secret DATABASE_URL
@@ -54,4 +54,4 @@ jobs:
       - name: Stop Application
         run: |
           sleep 10
-          kill $SERVER_PID
+          kill $(cat server_pid.txt)
