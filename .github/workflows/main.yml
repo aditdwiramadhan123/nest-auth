@@ -32,7 +32,12 @@ jobs:
         run: |
           npx prisma migrate deploy
           npx prisma generate # Generate Prisma Client
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} # Menggunakan secret DATABASE_URL
 
       # Run tests
       - name: Run tests
         run: npm test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} # Menggunakan secret DATABASE_URL
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}   # Menggunakan secret SECRET_KEY
