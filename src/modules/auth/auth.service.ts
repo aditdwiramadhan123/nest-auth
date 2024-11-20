@@ -8,7 +8,7 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import Hasher from 'src/utils/Hasher';
+import Hasher from 'src/utils/hasher';
 import * as jwt from 'jsonwebtoken';
 
 @Injectable()
