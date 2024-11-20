@@ -22,7 +22,10 @@ jobs:
       # Build Docker image dan kirim environment variables
       - name: Build Docker image
         run: |
-          docker build --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} -t nest-app .
+          docker build -t nest-app . 
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
       # Run Docker container dengan environment variables
       - name: Run Docker container
