@@ -18,5 +18,6 @@ async function bootstrap() {
   });
 
   await app.listen(3000);
+  console.log("server run in port 3000")
 }
 bootstrap();
