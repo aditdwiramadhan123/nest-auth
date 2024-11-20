@@ -41,7 +41,8 @@ jobs:
           npm start &
         # Store the PID of the running process in an environment variable
         env:
-          SERVER_PID: ${{ steps.start_application.outputs.pid }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} # Menggunakan secret DATABASE_URL
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}   # Menggunakan secret SECRET_KEY
 
       # Wait for the application to be up and running
       - name: Wait for the server to be ready
