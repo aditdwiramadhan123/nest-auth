@@ -35,9 +35,22 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }} # Menggunakan secret DATABASE_URL
 
-      # Run tests
-      - name: Run start
-        run: npm start
+       # Start the application (in the background)
+      - name: Start Application
+        run: |
+          npm start &
+        # Store the PID of the running process in an environment variable
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }} # Menggunakan secret DATABASE_URL
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}   # Menggunakan secret SECRET_KEY
+          SERVER_PID: ${{ steps.start_application.outputs.pid }}
+
+      # Wait for the application to be up and running
+      - name: Wait for the server to be ready
+        run: |
+          # You can use curl or any other method to verify the server is running.
+          curl http://localhost:3000
+
+      # Kill the server after a delay (replace 10 with the number of seconds you want to wait)
+      - name: Stop Application
+        run: |
+          sleep 10
+          kill $SERVER_PID
