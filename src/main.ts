@@ -17,7 +17,6 @@ async function bootstrap() {
     jsonDocumentUrl: '/api-json',
   });
   console.log('server run in port 3000');
-  console.log('server jalan dong');
   await app.listen(3000);
 }
 bootstrap();
